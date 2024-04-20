@@ -2,6 +2,10 @@ var box = document.getElementsByClassName("button-box");
 var itemList = document.getElementById("product-list");
 var body = document.getElementsByTagName("body");
 
+var men = "👱🏻‍♂️"
+var women = "👧🏻"
+var kid = "👶🏻"
+
 window.addEventListener("load", async function () {
   const data = await fetch(
     "https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json"
@@ -39,9 +43,9 @@ var index = 0;
 for (var i = 0; i < box.length; i++) {
   box[i].addEventListener("click", async function (e) {
     const text = e.srcElement.childNodes[0].data;
-    if (text == "👦Men") {
+    if (text.includes("Men")) {
       index = 0;
-    } else if (text == "👩Women") {
+    } else if (text.includes("Women")) {
       index = 1;
     } else {
       index = 2;
@@ -86,5 +90,19 @@ for (var i = 0; i < box.length; i++) {
     var current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
     this.className += " active";
+    const list = document.getElementsByClassName("button-box");
+    if (this.innerText.includes("Men")) {
+      this.innerText = men + "Men";
+      list[1].innerText = "Women";
+      list[2].innerText = "Kids";
+    } else if (this.innerText.includes("Women")) {
+      this.innerText = women + "Women";
+      list[0].innerText = "Men";
+      list[2].innerText = "Kids";
+    } else if (this.innerText.includes("Kids")) {
+      this.innerText = kid + "Kids";
+      list[0].innerText = "Men";
+      list[1].innerText = "Women";
+    }
   });
 }
